@@ -17,8 +17,8 @@
  *   'aa',''    => 'aa'
  *   '',  'bb'  => 'bb'
  */
-function concatenateStrings(/* value1, value2 */) {
-  throw new Error('Not implemented');
+function concatenateStrings(value1, value2) {
+  return value1 + value2;
 }
 
 /**
@@ -32,8 +32,8 @@ function concatenateStrings(/* value1, value2 */) {
  *   'b'     => 1
  *   ''      => 0
  */
-function getStringLength(/* value */) {
-  throw new Error('Not implemented');
+function getStringLength(value) {
+  return value.length;
 }
 
 /**
@@ -49,8 +49,8 @@ function getStringLength(/* value */) {
  *   'John','Doe'      => 'Hello, John Doe!'
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -63,8 +63,8 @@ function getStringFromTemplate(/* firstName, lastName */) {
  *   'Hello, John Doe!' => 'John Doe'
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  return value.slice(7, -1);
 }
 
 /**
@@ -77,8 +77,8 @@ function extractNameFromTemplate(/* value */) {
  *   'John Doe'  => 'J'
  *   'cat'       => 'c'
  */
-function getFirstChar(/* value */) {
-  throw new Error('Not implemented');
+function getFirstChar(value) {
+  return value[0];
 }
 
 /**
@@ -92,8 +92,8 @@ function getFirstChar(/* value */) {
  *   'cat'              => 'cat'
  *   '\tHello, World! ' => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  return value.trim();
 }
 
 /**
@@ -107,8 +107,8 @@ function removeLeadingAndTrailingWhitespaces(/* value */) {
  *   'A', 5  => 'AAAAA'
  *   'cat', 3 => 'catcatcat'
  */
-function repeatString(/* value, count */) {
-  throw new Error('Not implemented');
+function repeatString(value, count) {
+  return value.repeat(count);
 }
 
 /**
@@ -123,8 +123,8 @@ function repeatString(/* value, count */) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  return str.replace(value, '');
 }
 
 /**
@@ -138,8 +138,8 @@ function removeFirstOccurrences(/* str, value */) {
  *   '<span>' => 'span'
  *   '<a>' => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.slice(1, -1);
 }
 
 /**
@@ -152,8 +152,8 @@ function unbracketTag(/* str */) {
  *   'Thunderstruck' => 'THUNDERSTRUCK'
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-function convertToUpperCase(/* str */) {
-  throw new Error('Not implemented');
+function convertToUpperCase(str) {
+  return str.toUpperCase();
 }
 
 /**
@@ -171,8 +171,8 @@ function convertToUpperCase(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -198,8 +198,32 @@ function extractEmails(/* str */) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let rectangle = '';
+
+  const verticalBorder = '│';
+  const horizontalBorder = '─';
+  const innerSpace = ' ';
+
+  for (let i = 0; i < height; i += 1) {
+    if (i === 0) {
+      rectangle += '┌';
+      rectangle += horizontalBorder.repeat(width - 2);
+      rectangle += '┐';
+    } else if (i === height - 1) {
+      rectangle += '└';
+      rectangle += horizontalBorder.repeat(width - 2);
+      rectangle += '┘';
+    } else {
+      rectangle += verticalBorder;
+      rectangle += innerSpace.repeat(width - 2);
+      rectangle += verticalBorder;
+    }
+
+    rectangle += '\n';
+  }
+
+  return rectangle;
 }
 
 /**
@@ -218,8 +242,23 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+
+function encodeToRot13(str) {
+  const upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM';
+  const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyzabcdefghijklm';
+  let encodedStr = '';
+
+  for (let i = 0; i < str.length; i += 1) {
+    if (upperCaseLetters.includes(str[i])) {
+      encodedStr += upperCaseLetters[upperCaseLetters.indexOf(str[i]) + 13];
+    } else if (lowerCaseLetters.includes(str[i])) {
+      encodedStr += lowerCaseLetters[lowerCaseLetters.indexOf(str[i]) + 13];
+    } else {
+      encodedStr += str[i];
+    }
+  }
+
+  return encodedStr;
 }
 
 /**
@@ -235,8 +274,14 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  if (value === null) {
+    return false;
+  }
+
+  return typeof value === 'object'
+    ? typeof value.valueOf() === 'string'
+    : typeof value === 'string';
 }
 
 /**
@@ -263,8 +308,44 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  let cardId = 0;
+
+  const cardSuit = value.slice(-1);
+  const cardRank = Number.isNaN(Number.parseInt(value, 10))
+    ? value[0]
+    : Number.parseInt(value, 10);
+
+  switch (cardSuit) {
+    case '♣':
+      cardId += 0;
+      break;
+    case '♦':
+      cardId += 13;
+      break;
+    case '♥':
+      cardId += 13 * 2;
+      break;
+    case '♠':
+      cardId += 13 * 3;
+      break;
+    default:
+      break;
+  }
+
+  if (cardRank === 'A') {
+    cardId += 0;
+  } else if (cardRank === 'K') {
+    cardId += 12;
+  } else if (cardRank === 'Q') {
+    cardId += 11;
+  } else if (cardRank === 'J') {
+    cardId += 10;
+  } else {
+    cardId += cardRank - 1;
+  }
+
+  return cardId;
 }
 
 module.exports = {
